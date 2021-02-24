@@ -1,0 +1,108 @@
+<div class="container">
+    <div class="jumbotron mt-3">
+        <h2 class="text-center">USUARIOS</h2>
+    </div>
+
+</div>
+
+<div class="container-fluid">
+
+    <div class="mb-3">
+        <button pButton type="button" label="Crear Usuario" (click)="create()"></button>
+    </div>
+
+    <div class="content" role="main">
+        <div class="card">
+            <div class="form-group">
+                <label for="search-text">Buscar</label>
+                <input type="email" class="form-control" id="search-text" 
+                    [(ngModel)]="search" placeholder="Texto a buscar" (keyup)="searchInData()">
+            </div>
+        </div>
+    </div>
+
+    <p-table [value]="data" styleClass="p-datatable-striped">
+        <ng-template pTemplate="header">
+            <tr>
+                <th>Código</th>
+                <th>Nombre</th>
+                <th>Dirección</th>
+                <th>Población</th>
+                <th>CP</th>
+                <th>Ciudad</th>
+                <th>Teléfono</th>
+                <th>e-mail</th>
+                <th>Actualizar</th>
+                <th>Borrar</th>
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-d>
+            <tr>
+                <td> {{d.codigo}} </td>
+                <td> {{d.nombre}} </td>
+                <td> {{d.direccion}} </td>
+                <td> {{d.poblacion}} </td>
+                <td> {{d.cp}} </td>
+                <td> {{d.ciudad}} </td>
+                <td> {{d.telefono}} </td>
+                <td> {{d.email}} </td>
+                <td> <button pButton type="button" label="Actualizar" (click)="update(d)"></button>  </td>
+                <td> <button pButton type="button" label="Eliminar" (click)="delete(d.id)" class="p-button-danger"></button> </td>
+            </tr>
+        </ng-template>
+    </p-table>
+
+    <p-dialog header="{{textTitle}}" [(visible)]="display" [style]="{width: '25vw'}">
+        <form (ngSubmit)="createOrUpdateUser()" #createUserForm="ngForm">
+            <div class="input-group flex-nowrap">
+                <span class="input-group-text mb-1" id="addon-wrapping" style="width: 30%;">Código</span>
+                <input [(ngModel)]="usuario.codigo" name="codigo" type="text" class="form-control" aria-label="Username" aria-describedby="addon-wrapping" required>
+            </div>
+
+            <div class="input-group flex-nowrap mb-1">
+                <span class="input-group-text" id="addon-wrapping" style="width: 30%;">Nombre</span>
+                <input  [(ngModel)]="usuario.nombre" name="nombre" type="text" class="form-control" aria-label="Username" aria-describedby="addon-wrapping" required>
+            </div>
+
+            <div class="input-group flex-nowrap mb-1">
+                <span class="input-group-text" id="addon-wrapping" style="width: 30%;">Dirección</span>
+                <input  [(ngModel)]="usuario.direccion" name="direccion" type="text" class="form-control" aria-label="Username" aria-describedby="addon-wrapping" required>
+            </div>
+
+            <div class="input-group flex-nowrap" mb-1>
+                <span class="input-group-text" id="addon-wrapping" style="width: 30%;">Población</span>
+                <input  [(ngModel)]="usuario.poblacion" name="poblacion" type="text" class="form-control" aria-label="Username" aria-describedby="addon-wrapping" required>
+            </div>
+
+            <div class="input-group flex-nowrap mb-1">
+                <span class="input-group-text" id="addon-wrapping" style="width: 30%;">Código Postal</span>
+                <input  [(ngModel)]="usuario.cp" name="cp" type="text" class="form-control" aria-label="Username" aria-describedby="addon-wrapping" required>
+            </div>
+
+            <div class="input-group flex-nowrap mb-1">
+                <span class="input-group-text" id="addon-wrapping" style="width: 30%;">Ciudad</span>
+                <input  [(ngModel)]="usuario.ciudad" name="ciudad" type="text" class="form-control" aria-label="Username" aria-describedby="addon-wrapping" required>
+            </div>
+
+            <div class="input-group flex-nowrap mb-1">
+                <span class="input-group-text" id="addon-wrapping" style="width: 30%;">Teléfono</span>
+                <input  [(ngModel)]="usuario.telefono" name="telefono" type="text" class="form-control" aria-label="Username" aria-describedby="addon-wrapping" required>
+            </div>
+
+            <div class="input-group flex-nowrap mb-1">
+                <span class="input-group-text" id="addon-wrapping" style="width: 30%;">E-mail</span>
+                <input  [(ngModel)]="usuario.email" name="email" type="text" class="form-control" aria-label="Username" aria-describedby="addon-wrapping" required>
+            </div>
+
+            <button pButton type="submit" label="{{textTitle}}"  style="width: 100%;"></button>
+        </form>
+
+    </p-dialog>
+
+    <p-dialog header="{{textTitle}}" [(visible)]="displayDelete" [style]="{width: '25vw'}">
+        ¿Estás seguro en eliminar Usuario?
+        <button pButton type="button" label="No" (click)="confirmDelete(0, usuario.id)" style="width: 48%;"></button>
+        <button pButton type="button" label="Sí" (click)="confirmDelete(1, usuario.id)" style="width: 50%;" class="p-button-danger"></button>
+    </p-dialog>
+
+</div>
